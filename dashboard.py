@@ -36,7 +36,7 @@ def get_todays_wordle_number():
         url = f"https://www.nytimes.com/svc/wordle/v2/{today}.json"
         response = requests.get(url, timeout=5)
         data = response.json()
-        return data["days_since_launch"] + 1
+        return data["days_since_launch"]
     except:
         return None
 
