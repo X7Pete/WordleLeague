@@ -96,11 +96,18 @@ def update_all_stats(ss):
     ]
 
     for name, func in steps:
-        try:
-            func()
-            time.sleep(2)
-        except Exception as e:
-            st.warning(f"⚠️ Kunde inte uppdatera {name}: {e}")
+        success = False
+        attempts = 0
+        while not success and attempts < 3:
+            try:
+                func()
+                success = True
+            except Exception as e:
+                attempts += 1
+                time.sleep(5)
+        if not success:
+            st.warning(f"⚠️ {name} kunde inte uppdateras just nu, prova ladda om sidan om en stund.")
+        time.sleep(3)
 
 # --- Anslut till Google Sheets ---
 try:
