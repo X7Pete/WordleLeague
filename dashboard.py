@@ -98,7 +98,11 @@ def update_all_stats(ss):
     update_head_to_head()
 
 # --- Anslut till Google Sheets ---
-ss = get_spreadsheet()
+try:
+    ss = get_spreadsheet()
+except Exception as e:
+    st.error("⚠️ Kunde inte ansluta till Google Sheets just nu. Prova att ladda om sidan om en liten stund.")
+    st.stop()
 
 # --- Titel ---
 st.title("🟩 WordleLeague")
