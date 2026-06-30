@@ -39,12 +39,12 @@ def get_todays_wordle_number():
         return data["days_since_launch"]
     except:
         return None
-
+@st.cache_data(ttl=60)
 def get_players(ss):
     ws = ss.worksheet("Results")
     headers = ws.row_values(1)
     return headers[2:]
-
+@st.cache_data(ttl=10)
 def has_submitted_today(ss, player_name):
     ws = ss.worksheet("Results")
     today = date.today().strftime("%Y-%m-%d")
@@ -148,6 +148,8 @@ if selected_player != "Välj namn...":
                 save_result(ss, selected_player, wordle_number, score)
                 update_all_stats(ss)
             load_sheet.clear()
+            get_players.clear()
+            has_submitted_today.clear()
             st.success(f"✅ {selected_player}s resultat sparat!")
             st.balloons()
             st.rerun()
