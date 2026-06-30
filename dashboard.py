@@ -87,15 +87,20 @@ def update_all_stats(ss):
     from google_sheets.history import update_history
     from google_sheets.head_to_head import update_head_to_head
 
-    update_leaderboard()
-    time.sleep(1)
-    update_player_stats()
-    time.sleep(1)
-    update_streaks()
-    time.sleep(1)
-    update_history()
-    time.sleep(1)
-    update_head_to_head()
+    steps = [
+        ("Leaderboard", update_leaderboard),
+        ("Player Stats", update_player_stats),
+        ("Streaks", update_streaks),
+        ("History", update_history),
+        ("Head-to-Head", update_head_to_head),
+    ]
+
+    for name, func in steps:
+        try:
+            func()
+            time.sleep(2)
+        except Exception as e:
+            st.warning(f"⚠️ Kunde inte uppdatera {name}: {e}")
 
 # --- Anslut till Google Sheets ---
 try:
