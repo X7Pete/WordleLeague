@@ -221,3 +221,11 @@ st.divider()
 st.header("⚔️ Head-to-Head")
 h2h = load_sheet(ss, "Head-to-Head")
 st.dataframe(h2h, use_container_width=True, hide_index=True)
+
+st.divider()
+if st.button("🔄 Uppdatera all statistik manuellt"):
+    with st.spinner("Uppdaterar..."):
+        update_all_stats(ss)
+    load_sheet.clear()
+    st.success("Klart!")
+    st.rerun()
