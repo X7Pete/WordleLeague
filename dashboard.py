@@ -23,8 +23,8 @@ def get_spreadsheet():
     client = gspread.authorize(creds)
     return client.open("WordleLeague")
 @st.cache_data(ttl=30)
-def load_sheet(ss, name):
-    ws = ss.worksheet(name)
+def load_sheet(_ss, name):
+    ws = _ss.worksheet(name)
     data = ws.get_all_values()
     if not data:
         return pd.DataFrame()
