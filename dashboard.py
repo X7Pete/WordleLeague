@@ -80,15 +80,21 @@ def save_result(ss, player_name, wordle_number, score):
     ws.append_row(new_row)
 
 def update_all_stats(ss):
+    import time
     from google_sheets.leaderboard import update_leaderboard
     from google_sheets.player_stats import update_player_stats
     from google_sheets.streaks import update_streaks
     from google_sheets.history import update_history
     from google_sheets.head_to_head import update_head_to_head
+
     update_leaderboard()
+    time.sleep(1)
     update_player_stats()
+    time.sleep(1)
     update_streaks()
+    time.sleep(1)
     update_history()
+    time.sleep(1)
     update_head_to_head()
 
 # --- Anslut till Google Sheets ---
@@ -121,10 +127,11 @@ if selected_player != "Välj namn...":
     if has_submitted_today(ss, selected_player):
         st.success(f"✅ {selected_player} har redan matat in sitt resultat idag!")
     else:
-        score = st.select_slider(
-            "Antal gissningar",
-            options=[1, 2, 3, 4, 5, 6],
-            value=4
+        score = st.radio(
+        "Antal gissningar",
+        options=[1, 2, 3, 4, 5, 6],
+        index=3,
+        horizontal=True
         )
 
         if st.button("💾 Spara resultat", type="primary"):
