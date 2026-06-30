@@ -133,6 +133,7 @@ if selected_player != "Välj namn...":
                 update_all_stats(ss)
             st.success(f"✅ {selected_player}s resultat sparat!")
             st.balloons()
+            st.rerun()
 
 # --- Leaderboard ---
 st.divider()
