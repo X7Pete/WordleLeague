@@ -142,6 +142,7 @@ if selected_player != "Välj namn...":
             with st.spinner("Sparar..."):
                 save_result(ss, selected_player, wordle_number, score)
                 update_all_stats(ss)
+            load_sheet.clear()
             st.success(f"✅ {selected_player}s resultat sparat!")
             st.balloons()
             st.rerun()
