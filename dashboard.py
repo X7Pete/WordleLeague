@@ -45,8 +45,8 @@ def get_players(_ss):
     headers = ws.row_values(1)
     return headers[2:]
 @st.cache_data(ttl=10)
-def has_submitted_today(ss, player_name):
-    ws = ss.worksheet("Results")
+def has_submitted_today(_ss, player_name):
+    ws = _ss.worksheet("Results")
     today = date.today().strftime("%Y-%m-%d")
     records = ws.get_all_values()
     for row in records[1:]:
