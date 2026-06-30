@@ -15,14 +15,14 @@ SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
-
+@st.cache_resource
 def get_spreadsheet():
     creds_dict = dict(st.secrets["gcp_service_account"])
     creds_dict["private_key"] = creds_dict["private_key"].replace("\\n", "\n")
     creds = Credentials.from_service_account_info(creds_dict, scopes=SCOPES)
     client = gspread.authorize(creds)
     return client.open("WordleLeague")
-
+@st.cache_data(ttl=30)
 def load_sheet(ss, name):
     ws = ss.worksheet(name)
     data = ws.get_all_values()
