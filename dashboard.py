@@ -40,8 +40,8 @@ def get_todays_wordle_number():
     except:
         return None
 @st.cache_data(ttl=60)
-def get_players(ss):
-    ws = ss.worksheet("Results")
+def get_players(_ss):
+    ws = _ss.worksheet("Results")
     headers = ws.row_values(1)
     return headers[2:]
 @st.cache_data(ttl=10)
